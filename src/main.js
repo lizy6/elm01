@@ -6,6 +6,8 @@ import App from './App';
 import goods from './components/goods/goods.vue';
 import seller from './components/seller/seller.vue';
 import ratings from './components/ratings/ratings.vue';
+
+import './common/stylus/index.styl'
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 /* eslint-disable no-new */
@@ -24,11 +26,14 @@ const Seller={template:'<div>seller</div>'}*/
 const routes=[
   {path:'/goods',component:goods},
   {path:'/ratings',component:ratings},
-  {path:'/seller',component:seller}
+  {path:'/seller',component:seller},
+  //设置默认路由地址
+  {path:'/',component:goods}
 ];
 //3创建router实例，然后传'router'配置
 const router=new VueRouter({
-  routes:routes
+  routes:routes,
+  linkActiveClass:'active'
 })
 //4创建和挂载根实例
 const app=new Vue({
@@ -36,4 +41,5 @@ const app=new Vue({
   template: '<App/>',
   components: { App },
   router
-})
+});
+

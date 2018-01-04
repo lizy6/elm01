@@ -39,6 +39,8 @@
 
 </template>
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll';
+
   const ERR_OK = 0;
   export default {
     props: {
@@ -58,9 +60,20 @@
         if (response.errno === ERR_OK) {
           this.goods = response.data;
           //console.log(this.goods);
+          this.$nextTick(() => {
+            this._initScroll();
+          });
+
         }
       })
+    },
+    methods: {
+      _initScroll() {
+        this.menuScroll = new BScroll('.menu-wrapper', {});
+        this.foodsScroll = new BScroll('.foods-wrapper', {});
+      }
     }
+
   };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -82,7 +95,7 @@
         width: 56px
         line-height: 14px
         font-size: 12px
-        padding:0 12px
+        padding: 0 12px
         .icon
           display: inline-block
           width: 12px
@@ -106,58 +119,58 @@
           font-size: 12px
           width: 56px
           vertical-align: middle
-          border-1px(rgba(7,17,27,0.1))
+          border-1px(rgba(7, 17, 27, 0.1))
     .foods-wrapper
       flex: 1
       .food-list
         .title
-          border-left:2px solid #d9dde1
-          padding-left:14px
+          border-left: 2px solid #d9dde1
+          padding-left: 14px
           height: 26px
-          line-height:26px
-          width:100%
+          line-height: 26px
+          width: 100%
           font-size: 12px
-          color:rgb(147,153,159)
-          background:#f3f5f7
+          color: rgb(147, 153, 159)
+          background: #f3f5f7
         .food-item
-          display:flex
-          margin:18px
-          padding-bottom:18px
-          border-1px(rgba(7,17,27,0.1))
+          display: flex
+          margin: 18px
+          padding-bottom: 18px
+          border-1px(rgba(7, 17, 27, 0.1))
           &:last-child
             border-none()
-            margin-bottom:0
+            margin-bottom: 0
           .icon
-            flex:0 0 57px
+            flex: 0 0 57px
           .content
-            flex:1
-            padding-left:10px
+            flex: 1
+            padding-left: 10px
             .name
-              margin:2px 0 8px 0
+              margin: 2px 0 8px 0
               font-size: 14px
               line-height: 14px
-              color:rgb(7,17,27)
+              color: rgb(7, 17, 27)
             .desc
-              margin-bottom:8px
+              margin-bottom: 8px
               font-size: 10px
-              color:rgb(147,153,159)
-              line-height:10px
+              color: rgb(147, 153, 159)
+              line-height: 10px
             .extra
               font-size: 10px
-              color:rgb(147,153,159)
-              line-height:10px
+              color: rgb(147, 153, 159)
+              line-height: 10px
               &.count
-                margin-right:12px
+                margin-right: 12px
             .price
-              font-weight:700
-              line-height:24px
+              font-weight: 700
+              line-height: 24px
               .now_price
-                margin-right:8px
+                margin-right: 8px
                 font-size: 14px
-                color:rgb(240,20,20)
-                font-weight:normal
+                color: rgb(240, 20, 20)
+                font-weight: normal
               .old_price
                 font-size: 10px
-                color:rgb(147,153,159)
+                color: rgb(147, 153, 159)
 
 </style>

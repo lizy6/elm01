@@ -26,10 +26,10 @@
         type: Array,
         default() {
           return [
-            {
+            /*{
               price: 5,
               count: 4
-            }
+            }*/
           ];
         }
       },

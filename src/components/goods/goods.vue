@@ -31,7 +31,7 @@
                                                                       v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol :food="food" v-on:cart-add="cartAdd"></cartcontrol>
                 </div>
               </div>
 
@@ -40,7 +40,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" v-bind:deliveryprice="seller.deliveryPrice"
+    <shopcart ref="shopcart" :select-foods="selectFoods" v-bind:deliveryprice="seller.deliveryPrice"
               v-bind:minprice="seller.minPrice"></shopcart>
   </div>
 
@@ -112,6 +112,18 @@
         this.foodsScroll.scrollToElement(el, 300);
         console.log(index);
       },
+      _drop(target) {
+//       体验优化，顺畅
+        this.$nextTick(()=>{
+          this.$refs.shopcart.drop(target);
+        })
+
+      },
+      cartAdd(el){
+        this.$nextTick(()=>{
+          this.$refs['shopcart'].drop(el);
+        })
+      },
       _initScroll() {
         this.menuScroll = new BScroll('.menu-wrapper', {
           click: true
@@ -138,6 +150,11 @@
     components: {
       shopcart,
       cartcontrol
+    },
+    events: {
+      'cart.add'(target) {
+        this._drop(target);
+      }
     }
 
   };
